@@ -1,0 +1,179 @@
+*******
+Task 1*
+*******
+
+Command : ps -ef | grep python | wc -l
+
+Above instructions especially ps, grep, wc give a lot of possibilities.
+
+ps command prints operations which are on surface peculiar distro while
+-ef flag grants ability to highlight all working reactively activities.
+
+source:
+https://www.ibm.com/docs/en/aix/7.2?topic=g-grep-command
+
+*******
+Task 2*
+*******
+
+Question: Is 172.56.23.5 a public or private IP address?
+
+First of all lets break down IP address structure:
+
+192.168.23.11 is divided by dots which we call octets.
+Three numbers from beginning are network portion while the last one 
+is named host portion which basically identifies machine and assigned to her
+IP. Those numbers have range from 1 to 255.
+
+Internet Assigned Numbers Authority(IANA) created ranges which 
+are considered as private networks.
+
+Class A: 10.0.0.0 to 10.255.255.255
+Class B: 172.16.0.0 to 172.31.255.255
+Class C: 192.168.0.0 to 192.168.255.255
+
+Class D is reserved for multicasting and Class E is researching tool for unit called IETF(Internet Engineering Task Force) 
+
+Based on this knowledge we can assume that IP 172.56.23.5 belongs to public addresses
+
+source:
+https://www.ibm.com/docs/en/networkmanager/4.2.0?topic=translation-private-address-ranges
+
+*******
+Task 3*
+*******
+
+How many IP address are available in this subnet 192.168.0.0/28?
+
+To answer that question i have to use technique called subnetting.
+It's basically logical partitioning pointed out network into smaller sub-networks and subnets.
+
+When i take 192.168.0.0 as a example i need to be sure that
+either 192.168.0.0 and 192.168.0.255 are not used.
+Both are crucial when it comes to specify only network without passed info abouthost or broadcasting message to all hosts on chosen environment
+
+Zeros give opportunity to specify administrator network information and Ones
+are occupied with sending messages to all hosts.
+
+Prefix "/28" written in CIDR format helps in deciphering subnet mask
+which for that case will be "255.255.255.240"
+
+Mine final answer will be 14. I can assign to 192.168.0.0/28 14 hosts because
+of subnet mask.
+
+source:
+https://docs.microsoft.com/en-us/troubleshoot/windows-client/networking/tcpip-addressing-and-subnetting(chapter Subnetting)
+
+https://avinetworks.com/glossary/subnet-mask/
+
+https://www.cloudaccess.net/cloud-control-panel-ccp/157-dns-management/322-subnet-masks-reference-table.html
+
+*******
+Task 4*
+*******
+
+Command: lsof | grep /tmp 2>&1 | awk {'print $2'} | sort -u
+
+
+lsof combined with grep starts to search files in /tmp folder where instruction 2>&1 asks to prompt errors with regular 1 standard output stream. After that we see combination for printing out column 2 which is handled by sorting.
+
+lsof need to be used with root privileges since on this rely his effectivity while accessing to kernel memory. We then see columns like COMMAND,PID(process identifier),user, FD(file descriptor). Last one is good for finding location of application log files in cwd or .txt which is used mostly as a trigger to initializelibrary or interface.
+
+lsof is powerfull tool for searching through kernel memory targeted process.
+It easily finds out information about applications with help of FD(file descriptor column) through cwd or .txt. With lsof also i can find out what is mine pc machine hosting.
+
+User with this command asks to dump after reaching kernel memory for all processes and grep with specified destination folder named /tmp(temporary files i assume) stream out error messages as standard input.
+
+lsof is used for finding applications log files or when an problem occurs if itsnot working properly. Without using any flag i can get dumped all operations 
+
+
+source: 
+https://developer.ibm.com/articles/au-lsof/
+
+*******
+Task.5*
+*******
+
+How would you check the status of a service running on a Centos 8 machine?
+
+I could use  sudo systemctl status (name of service f.e. Docker) 
+
+With that command you can also start and stop which might become 
+handy
+
+*******
+Task.6*
+*******
+
+If i wanted to set a static IP address on an interface which should be 
+persisted reboot, should i use the command?
+
+1. ip
+
+2. nmcli
+
+3. ifconfig
+
+4. ipconfig
+
+
+Adnotation 1 
+
+quote: "ip commands given on the command line will not persist after a system restart"
+
+Ip command adds, remove addresses and route to interface in parallel with Network Manager.
+So basically i manage addresses pool while we recognize them in nmcli, nmtui, 
+control-center and the D-Bus API.
+
+Answer: No
+
+Adnotation 2
+
+nmcli (Network Manager Command Line Interface)
+
+Manager is used to create,display,activate,deactivate and check for network status. It's very 
+helpfull in dealing with web or hardware issues from for servers.
+
+Static Ethernet connection can be configured with editor which gives as a default action
+saving connection profile as persistent.
+
+Answer: Yes. By invoking in terminal that cli i can setup static address IP.
+
+Adnotation 3
+
+ifconfig
+
+Helps in setting up or showing parameteres for chosen network with TCP/IP
+
+quote:
+"Note: Any changes that are made to the attributes of an interface by using the
+ifconfig command are lost when the system is rebooted."
+
+Answer: No
+
+
+
+
+Adnotation 4
+
+ipconfig is system service tool advanced command that allows viewing or 
+altering IP configuration not available through the standard TCP/IP 
+configuration menus.
+
+Answer: No
+
+
+
+source:
+https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/networking_guide/sec-configuring_ip_networking_with_ip_commands
+
+source:
+https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/networking_guide/sec-configuring_ip_networking_with_nmcli
+
+
+source:
+https://www.ibm.com/docs/en/aix/7.2?topic=i-ifconfig-command
+
+source:
+https://www.ibm.com/docs/en/i/7.3?topic=tcpip-ipconfig-command
+
